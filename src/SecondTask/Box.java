@@ -16,4 +16,5 @@ public interface Box {
     double totalCostOfBox();
     double totalWeightOfBox();
     void reduceWeight(int reduce);
+    void reducePrice(int reduce);
 }

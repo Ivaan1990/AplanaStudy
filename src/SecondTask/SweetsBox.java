@@ -1,11 +1,10 @@
 package SecondTask;
-
-import SecondTask.sweets.Candy;
 import SecondTask.sweets.Sweet;
 
 /**
  * @author Ivan Yushin
  * @see #reduceWeight(int) TODO
+ * @see #reducePrice(int) TODO
  * @see Box
  */
 public class SweetsBox implements Box {
@@ -76,7 +75,7 @@ public class SweetsBox implements Box {
         for(Sweet sweet : sweets){
             System.out.println(
                     sweet + " его стоимость " + sweet.getPrice()
-                            + ", его вес " + sweet.getWeight()
+                        + ", его вес " + sweet.getWeight()
             );
         }
     }
@@ -130,6 +129,16 @@ public class SweetsBox implements Box {
 
         //getInfoAboutSweets();
         System.out.println(min);
+    }
+
+    /**
+     *
+     * @param reduce изменяем цену коробки, на ту цену что передается в параметр метода
+     *  путем извлечения любых сладостей
+     */
+    @Override
+    public void reducePrice(int reduce) {
+
     }
 
     /**

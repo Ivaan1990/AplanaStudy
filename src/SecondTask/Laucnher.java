@@ -4,18 +4,17 @@ import SecondTask.sweets.Candy;
 import SecondTask.sweets.Chocolate;
 import SecondTask.sweets.Donut;
 import SecondTask.sweets.Sweet;
-
 import java.util.Random;
 import java.util.Scanner;
-
 
 /**
  * @author Ivan Yushin
  * Изначальная ёмкость коробки 20.
  * В цикле рандомно создаем объекты сладостей, и добавляем их в коробку. Повторяем 20 раз
  * После того как коробка заполнена, сообщаем об этом, выводим её стоимость и общий вес
+ * @see SweetsBox
+ * @see Sweet
  */
-
 public class Laucnher {
     public static void main(String[] args) {
 
@@ -44,10 +43,10 @@ public class Laucnher {
             double totalWeight = box.totalWeightOfBox();
             System.out.println("Общий вес " + totalWeight);
 
-            /*//tests
+            /* tests
             box.getInfoAboutSweets();
             box.reduceWeight(400);
-            //tests end*/
+            tests end */
 
             if((int)totalWeight > 500) {
                 System.out.println("Сладости не влезли в коробку, идёт корректировка");
