@@ -15,8 +15,11 @@ import java.util.Scanner;
  * @see SweetsBox
  * @see Sweet
  * @see Box
+ * @see #AMOUNT_OF_SWEETS (Candy, Donut, Chocolate,) количество видов сладостей
  */
 public class Laucnher {
+    private static final int AMOUNT_OF_SWEETS = 3;
+
     public static void main(String[] args) throws InterruptedException {
 
         while (true){
@@ -25,7 +28,7 @@ public class Laucnher {
             int boxSize = box.size();
             for(int i = 0; i < boxSize; i++){
                 Random r = new Random();
-                int random = r.nextInt(3);
+                int random = r.nextInt(AMOUNT_OF_SWEETS);
                 switch (random){
                     case 0:
                         box.add(new Candy(1, Sweet.getRandomWeight(), Sweet.randomTaste()));
