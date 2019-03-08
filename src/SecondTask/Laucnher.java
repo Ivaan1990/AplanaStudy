@@ -9,7 +9,7 @@ import java.util.Scanner;
 
 /**
  * @author Ivan Yushin
- * Изначальная ёмкость коробки 20.
+ * Изначальная ёмкость коробки 20, и больше этого значения быть не может, увеличение коробки не предусмотрено
  * В цикле рандомно создаем объекты сладостей, и добавляем их в коробку. Повторяем 20 раз
  * После того как коробка заполнена, сообщаем об этом, выводим её стоимость и общий вес
  * @see SweetsBox
@@ -20,7 +20,7 @@ public class Laucnher {
     public static void main(String[] args) {
 
         while (true){
-            Box box = new SweetsBox(20);
+            Box box = new SweetsBox(32);
             System.out.println("Формируем вашу коробку со сладостяим");
             int boxSize = box.size();
 

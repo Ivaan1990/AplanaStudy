@@ -3,8 +3,10 @@ import SecondTask.sweets.Sweet;
 
 /**
  * @author Ivan Yushin
+ * ---- Smart Box ----
  * @see #reduceWeight(int) TODO
  * @see #reducePrice(int) TODO
+ * -------------------
  * @see Box
  */
 
@@ -18,6 +20,9 @@ public class SweetsBox implements Box {
      * @param size длина массива
      */
     public SweetsBox(int size) {
+        if (size > 20){
+            size = 20;
+        }
         sweets = new Sweet[size];
         this.size = size;
         count = 0;
