@@ -27,13 +27,13 @@ public class Laucnher {
                 int random = r.nextInt(3);
                 switch (random){
                     case 0:
-                        box.add(new Candy(1, Sweet.getRandomWeight(), SweetsBox.randomTaste()));
+                        box.add(new Candy(1, Sweet.getRandomWeight(), Sweet.randomTaste()));
                         break;
                     case 1:
-                        box.add(new Donut(3, Sweet.getRandomWeight(), SweetsBox.randomTaste()));
+                        box.add(new Donut(3, Sweet.getRandomWeight(), Sweet.randomTaste()));
                         break;
                     case 2:
-                        box.add(new Chocolate(4, Sweet.getRandomWeight(), SweetsBox.randomTaste()));
+                        box.add(new Chocolate(4, Sweet.getRandomWeight(), Chocolate.randomTaste()));
                         break;
                 }
             }
@@ -42,11 +42,6 @@ public class Laucnher {
             System.out.println("Общая стоимость " + box.totalCostOfBox());
             double totalWeight = box.totalWeightOfBox();
             System.out.println("Общий вес " + totalWeight);
-
-            /* tests
-            box.getInfoAboutSweets();
-            box.reduceWeight(400);
-            tests end */
 
             if((int)totalWeight > 500) {
                 System.out.println("Сладости не влезли в коробку, идёт корректировка");
@@ -62,6 +57,5 @@ public class Laucnher {
                 break;
             }
         }
-
     }
 }

@@ -5,7 +5,7 @@ package SecondTask.sweets;
  */
 public class Candy extends Sweet {
 
-    private String color;
+    private String taste;
 
     /**
      *
@@ -15,15 +15,15 @@ public class Candy extends Sweet {
      */
     public Candy(double price, double weight, String taste) {
         super(price, weight);
-        this.color = taste;
+        this.taste = taste;
     }
 
     @Override
     public String toString() {
-        return super.toString() + " конфета";
+        return super.toString() + " конфета " + taste;
     }
 
     public String getTaste() {
-        return color;
+        return taste;
     }
 }

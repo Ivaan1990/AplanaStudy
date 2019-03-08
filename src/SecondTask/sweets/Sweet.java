@@ -1,11 +1,11 @@
 package SecondTask.sweets;
 
 /**
- * @author Ivan Yushin
  */
 public abstract class Sweet {
     private double price;
     private double weight;
+    private static String[] tastes = {"клубника", "яблоко", "банан", "апельсин"};
 
     /**
      *
@@ -25,12 +25,26 @@ public abstract class Sweet {
         return weight;
     }
 
-    public static double getRandomWeight(){
-        return  5 + (int) ((Math.random() * 40));
-    }
-
     @Override
     public String toString() {
         return "Сладость";
     }
+
+    /**
+     *
+     * @return возвращаем рандомный вес сладости
+     */
+    public static double getRandomWeight(){
+        return  5 + (int) ((Math.random() * 40));
+    }
+
+    /**
+     *
+     * @return возвращает рандомный вкус сладости из массива tastes
+     * @see #tastes
+     */
+    public static String randomTaste() {
+        return tastes[(int) (Math.random() * tastes.length)];
+    }
+
 }

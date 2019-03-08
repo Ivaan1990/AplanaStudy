@@ -7,12 +7,12 @@ import SecondTask.sweets.Sweet;
  * @see #reducePrice(int) TODO
  * @see Box
  */
+
 public class SweetsBox implements Box {
 
     private Sweet[] sweets;
     private int size;
     private int count;
-    private static String[] tastes = {"strawberry", "apple", "banana", "orange"};
 
     /**
      * Конструктор - создание нового объекта
@@ -127,7 +127,6 @@ public class SweetsBox implements Box {
 
         }
 
-        //getInfoAboutSweets();
         System.out.println(min);
     }
 
@@ -140,14 +139,4 @@ public class SweetsBox implements Box {
     public void reducePrice(int reduce) {
 
     }
-
-    /**
-     *
-     * @return возвращает рандомный вкус сладости из массива tastes
-     * @see #tastes
-     */
-    public static String randomTaste() {
-        return tastes[(int) (Math.random() * tastes.length)];
-    }
-
 }
