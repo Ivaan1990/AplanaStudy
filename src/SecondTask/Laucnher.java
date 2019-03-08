@@ -17,13 +17,12 @@ import java.util.Scanner;
  * @see Box
  */
 public class Laucnher {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws InterruptedException {
 
         while (true){
-            Box box = new SweetsBox(32);
-            System.out.println("Формируем вашу коробку со сладостяим");
+            Box box = new SweetsBox(20);
+            System.out.println("Формируем коробку со сладостяим");
             int boxSize = box.size();
-
             for(int i = 0; i < boxSize; i++){
                 Random r = new Random();
                 int random = r.nextInt(3);
@@ -35,7 +34,7 @@ public class Laucnher {
                         box.add(new Donut(3, Sweet.getRandomWeight(), Sweet.randomTaste()));
                         break;
                     case 2:
-                        box.add(new Chocolate(4, Sweet.getRandomWeight(), Chocolate.randomTaste()));
+                        box.add(new Chocolate(4, Sweet.getRandomWeight(), Chocolate.randomVariety()));
                         break;
                 }
             }

@@ -4,35 +4,35 @@ package SecondTask.sweets;
  * @author Ivan Yushin
  */
 public class Chocolate extends Sweet {
-    private static String[] variety = {"молочный", "темный", "горький"};
-    private String taste;
+    private static String[] varietys = {"молочный", "темный", "горький"};
+    private String variety;
 
     /**
      *
-     * @param price
-     * @param weight
-     * @param taste вкус шоколада
+     * @param price цена
+     * @param weight вес
+     * @param variety сорт шоколада
      * #see #variety
      */
-    public Chocolate(double price, double weight, String taste) {
+    public Chocolate(double price, double weight, String variety) {
         super(price, weight);
-        this.taste = taste;
+        this.variety = variety;
     }
 
-    public String getTaste() {
-        return taste;
+    public String getVariety() {
+        return variety;
     }
 
     /**
      *
-     * @return рандомно вовзвращаем вкус шоколада
-     * @see #variety
+     * @return рандомно возвращаем вкус шоколада
+     * @see #varietys
      */
-    public static String randomTaste() {
-        return variety[(int) (Math.random() * variety.length)];
+    public static String randomVariety() {
+        return varietys[(int) (Math.random() * varietys.length)];
     }
     @Override
     public String toString() {
-        return super.toString() + " шоколад " + taste;
+        return super.toString() + " шоколад. Сорт: " + variety;
     }
 }

@@ -10,7 +10,7 @@ public class Candy extends Sweet {
      *
      * @param price цена
      * @param weight вес
-     * @param taste
+     * @param taste вкус
      */
     public Candy(double price, double weight, String taste) {
         super(price, weight);
@@ -19,7 +19,7 @@ public class Candy extends Sweet {
 
     @Override
     public String toString() {
-        return super.toString() + " конфета " + taste;
+        return super.toString() + " конфета. Вкус: " + taste;
     }
 
     public String getTaste() {

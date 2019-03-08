@@ -77,8 +77,8 @@ public class SweetsBox implements Box {
     public void getInfoAboutSweets(){
         for(Sweet sweet : sweets){
             System.out.println(
-                    sweet + " его стоимость " + sweet.getPrice()
-                        + ", его вес " + sweet.getWeight()
+                    sweet + ". Стоимость " + sweet.getPrice()
+                          + ", вес " + sweet.getWeight()
             );
         }
     }

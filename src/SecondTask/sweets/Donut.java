@@ -8,8 +8,8 @@ public class Donut extends Sweet {
 
     /**
      *
-     * @param price
-     * @param weight
+     * @param price цена
+     * @param weight вес
      * @param filling начинка
      */
     public Donut(double price, double weight, String filling) {
@@ -23,6 +23,6 @@ public class Donut extends Sweet {
 
     @Override
     public String toString() {
-        return super.toString() + " пончик " + filling;
+        return super.toString() + " пончик. Начинка: " + filling;
     }
 }
