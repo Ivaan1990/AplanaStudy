@@ -1,14 +1,21 @@
 package SecondTask.sweets;
 
-import java.util.Random;
-
+/**
+ * @author Ivan Yushin
+ */
 public class Candy extends Sweet {
 
     private String color;
 
-    public Candy(double price, double weight, String color) {
+    /**
+     *
+     * @param price цена
+     * @param weight вес
+     * @param taste
+     */
+    public Candy(double price, double weight, String taste) {
         super(price, weight);
-        this.color = color;
+        this.color = taste;
     }
 
     @Override
@@ -16,7 +23,7 @@ public class Candy extends Sweet {
         return super.toString() + " конфета";
     }
 
-    public String getColor() {
+    public String getTaste() {
         return color;
     }
 }

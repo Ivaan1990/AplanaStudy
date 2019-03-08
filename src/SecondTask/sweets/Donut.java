@@ -1,5 +1,8 @@
 package SecondTask.sweets;
 
+/**
+ * @author Ivan Yushin
+ */
 public class Donut extends Sweet {
 
     private String filling;

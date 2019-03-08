@@ -1,9 +1,17 @@
 package SecondTask.sweets;
 
+/**
+ * @author Ivan Yushin
+ */
 public abstract class Sweet {
     private double price;
     private double weight;
 
+    /**
+     *
+     * @param price цена
+     * @param weight вес
+     */
     public Sweet(double price, double weight) {
         this.price = price;
         this.weight = weight;
@@ -17,12 +25,8 @@ public abstract class Sweet {
         return weight;
     }
 
-    public void setPrice(double price) {
-        this.price = price;
-    }
-
-    public void setWeight(double weight) {
-        this.weight = weight;
+    public static double getRandomWeight(){
+        return  5 + (int) ((Math.random() * 40));
     }
 
     @Override

@@ -1,7 +1,11 @@
 package SecondTask.sweets;
 
+/**
+ * @author Ivan Yushin
+ */
 public class Chocolate extends Sweet {
 
+    String[] juicy = {""};
     private String taste;
 
     public Chocolate(double price, double weight, String taste) {
