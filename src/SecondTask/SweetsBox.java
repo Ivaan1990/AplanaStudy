@@ -9,7 +9,6 @@ import SecondTask.sweets.Sweet;
  */
 
 public class SweetsBox implements Box {
-
     private Sweet[] sweets;
     private int size;
     private int count;
@@ -66,9 +65,8 @@ public class SweetsBox implements Box {
 
     /**
      * вся инфорация по подарку, выводит в консоль:
-     * что за сладость
-     * её стоимость
-     * её вес
+     * что за сладости, их стоимость и вес
+     * @see Sweet
      */
     @Override
     public void getInfoAboutSweets(){

@@ -14,6 +14,7 @@ import java.util.Scanner;
  * После того как коробка заполнена, сообщаем об этом, выводим её стоимость и общий вес
  * @see SweetsBox
  * @see Sweet
+ * @see Box
  */
 public class Laucnher {
     public static void main(String[] args) {
@@ -22,6 +23,7 @@ public class Laucnher {
             Box box = new SweetsBox(20);
             System.out.println("Формируем вашу коробку со сладостяим");
             int boxSize = box.size();
+
             for(int i = 0; i < boxSize; i++){
                 Random r = new Random();
                 int random = r.nextInt(3);
@@ -43,9 +45,10 @@ public class Laucnher {
             double totalWeight = box.totalWeightOfBox();
             System.out.println("Общий вес " + totalWeight);
 
-            if((int)totalWeight > 500) {
+            int correctWeight = 500; // на какой вес корректируем
+            if((int)totalWeight > correctWeight) {
                 System.out.println("Сладости не влезли в коробку, идёт корректировка");
-                box.reduceWeight(500);
+                box.reduceWeight(correctWeight);
             } else {
                 System.out.println("Подарок упакован, в него входит:");
                 box.getInfoAboutSweets();

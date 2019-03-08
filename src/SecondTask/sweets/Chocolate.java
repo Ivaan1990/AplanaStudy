@@ -4,7 +4,6 @@ package SecondTask.sweets;
  * @author Ivan Yushin
  */
 public class Chocolate extends Sweet {
-
     private static String[] variety = {"молочный", "темный", "горький"};
     private String taste;
 

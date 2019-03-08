@@ -1,6 +1,11 @@
 package SecondTask.sweets;
 
+
 /**
+ * @author Ivan Yushin
+ * @see Candy
+ * @see Chocolate
+ * @see Donut
  */
 public abstract class Sweet {
     private double price;
@@ -17,10 +22,17 @@ public abstract class Sweet {
         this.weight = weight;
     }
 
+    /**
+     *
+     * @return цена сладости
+     */
     public double getPrice() {
         return price;
     }
 
+    /**
+     * @return вес сладости
+     */
     public double getWeight() {
         return weight;
     }

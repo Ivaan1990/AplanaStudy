@@ -4,7 +4,6 @@ package SecondTask.sweets;
  * @author Ivan Yushin
  */
 public class Candy extends Sweet {
-
     private String taste;
 
     /**
