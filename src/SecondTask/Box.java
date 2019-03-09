@@ -11,9 +11,9 @@ public interface Box {
     Sweet get(int index);
     void add(Sweet sweet);
     void getInfoAboutSweets();
-    void reduceWeight(int reduce);
-    void reducePrice(int reduce);
-    void delete(int index);
+    Box reduceWeight(int reduce);
+    Box reducePrice(int reduce);
+    Box delete(int index);
     double totalCostOfBox();
     double totalWeightOfBox();
     int size();

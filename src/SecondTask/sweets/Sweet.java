@@ -37,6 +37,14 @@ public abstract class Sweet {
         return weight;
     }
 
+    public void setPrice(double price) {
+        this.price = price;
+    }
+
+    public void setWeight(double weight) {
+        this.weight = weight;
+    }
+
     @Override
     public String toString() {
         return "Сладость";

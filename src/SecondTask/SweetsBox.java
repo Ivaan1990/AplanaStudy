@@ -1,31 +1,28 @@
 package SecondTask;
 import SecondTask.sweets.Sweet;
 
+import java.lang.reflect.Array;
+import java.util.Arrays;
+
 /**
  * @author Ivan Yushin
  * ---- Smart Box ----
- * @see #reduceWeight(int) TODO
- * @see #reducePrice(int) TODO
+ * @see #reduceWeight(int)
+ * @see #reducePrice(int)
  * -------------------
  * @see Box
  */
 
 public class SweetsBox implements Box {
-    private Sweet[] sweets;
-    private int size;
-    private int count;
+    private Sweet[] sweets = null;
+    private int count = 0;
 
     /**
      * Конструктор - создание нового объекта
-     * @param size длина массива
+     *
      */
-    public SweetsBox(int size) {
-        if (size > 20){
-            size = 20;
-        }
-        sweets = new Sweet[size];
-        this.size = size;
-        count = 0;
+    public SweetsBox() {
+        sweets = new Sweet[1];
     }
 
     /**
@@ -35,17 +32,30 @@ public class SweetsBox implements Box {
      */
     @Override
     public void add(Sweet sweet) {
-        sweets[count] = sweet;
-        count++;
+        sweets[count++] = sweet;
+        sweets = Arrays.copyOf(sweets, sweets.length + 1);
     }
 
     /**
      *
      * @param index удаляем сладость из коробки по её индексу
+     * @return возвращает новый экземпляр коробки без этого элемента
      */
     @Override
-    public void delete(int index) {
-        sweets[index] = null;
+    public Box delete(int index) {
+        Box temp = new SweetsBox();
+        if (index >= this.size() || index < 0) {
+            System.err.println("Невозможно удалить не существующий элемент");
+        } else {
+            for (int i = 0; i < size(); i++) {
+                if (i == index) {
+                    continue;
+                } else {
+                    temp.add(sweets[i]);
+                }
+            }
+        }
+        return temp;
     }
 
     /**
@@ -65,7 +75,7 @@ public class SweetsBox implements Box {
      */
     @Override
     public int size() {
-        return sweets.length;
+        return sweets.length - 1;
     }
 
     /**
@@ -75,11 +85,15 @@ public class SweetsBox implements Box {
      */
     @Override
     public void getInfoAboutSweets(){
-        for(Sweet sweet : sweets){
-            System.out.println(
-                    sweet + ". Стоимость " + sweet.getPrice()
-                          + ", вес " + sweet.getWeight()
-            );
+        try{
+            for(Sweet sweet : sweets){
+                System.out.println(
+                        sweet + ". Стоимость " + sweet.getPrice()
+                                + ", вес " + sweet.getWeight()
+                );
+            }
+        } catch (NullPointerException ex){
+            System.out.print("");
         }
     }
 
@@ -90,9 +104,15 @@ public class SweetsBox implements Box {
     @Override
     public double totalCostOfBox() {
         double sum = 0;
-        for (Sweet sweet : sweets) {
-            sum += sweet.getPrice();
+        try {
+            for (Sweet sweet : sweets) {
+                double d = sweet.getPrice();
+                sum += d;
+            }
+        } catch (NullPointerException ex){
+            System.out.print("");
         }
+
         return sum;
     }
 
@@ -103,43 +123,80 @@ public class SweetsBox implements Box {
     @Override
     public double totalWeightOfBox() {
         double totalWeight = 0;
-        for (Sweet sweet : sweets){
-            totalWeight += sweet.getWeight();
+        try {
+            for (Sweet sweet : sweets){
+                totalWeight += sweet.getWeight();
+            }
+        } catch (NullPointerException ex){
+            System.out.print("");
         }
+
         return totalWeight;
     }
 
     /**
      *
      * @param reduce изменяем вес коробки, на тот вес что передается в параметр метода
+     *  Находим самый тяжелую сладость и убираем ее из массива
+     *  @return новую коробку из которой убрано самая весомая сладость
      */
     @Override
-    public void reduceWeight(int reduce) {
+    public Box reduceWeight(int reduce) {
+        Box temp = new SweetsBox();
+        try{
+            int max = 0;
+            int index = 0;
 
-        int total = (int)totalWeightOfBox();
-        int min = 0;
-        int index = 0;
-
-        for(int i = 0; i < sweets.length; i++){
-            if(sweets[i].getWeight() < min){
-                min = (int)sweets[i].getWeight();
-                index = i;
-                System.out.println(min);
+            for(int i = 0; i < sweets.length - 1; i++){
+                temp.add(sweets[i]);
+                int weight = (int)sweets[i].getWeight();
+                if (max < weight){
+                    max = weight;
+                    index = i;
+                }
             }
-            int correct = total - min;
+            int total = (int)temp.totalWeightOfBox();
 
+            if (total > reduce){
+                temp = temp.delete(index);
+            }
+        } catch (NullPointerException ex){
+            System.out.print("");
         }
 
-        System.out.println(min);
+        return temp;
     }
 
     /**
      *
      * @param reduce изменяем цену коробки, на ту цену что передается в параметр метода
      *  путем извлечения любых сладостей
+     * @return новую коробку из которой убрано самое дорогая сладость
      */
     @Override
-    public void reducePrice(int reduce) {
+    public Box reducePrice(int reduce) {
+        Box temp = new SweetsBox();
+        try{
+            int max = 0;
+            int index = 0;
 
+            for(int i = 0; i < sweets.length - 1; i++){
+                temp.add(sweets[i]);
+                int weight = (int)sweets[i].getPrice();
+                if (max < weight){
+                    max = weight;
+                    index = i;
+                }
+            }
+            int total = (int)temp.totalCostOfBox();
+
+            if (total > reduce){
+                temp = temp.delete(index);
+            }
+        } catch (NullPointerException ex){
+            System.out.print("");
+        }
+
+        return temp;
     }
 }

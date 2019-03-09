@@ -23,10 +23,10 @@ public class Laucnher {
     public static void main(String[] args) throws InterruptedException {
 
         while (true){
-            Box box = new SweetsBox(20);
-            System.out.println("Формируем коробку со сладостяим");
-            int boxSize = box.size();
-            for(int i = 0; i < boxSize; i++){
+            Box box = new SweetsBox();
+            System.out.println("Формируем коробку со сладостями");
+
+            for(int i = 0; i < 10 + (Math.random() * 20); i++){
                 Random r = new Random();
                 int random = r.nextInt(AMOUNT_OF_SWEETS);
                 switch (random){
@@ -42,19 +42,43 @@ public class Laucnher {
                 }
             }
 
-            System.out.println("Коробка собрана");
-            System.out.println("Общая стоимость " + box.totalCostOfBox());
-            double totalWeight = box.totalWeightOfBox();
+            System.out.println("Длина коробки " + box.size());
+            System.out.println("Цена коробки со всеми сладостями " + box.totalCostOfBox());
+            int totalWeight = (int)box.totalWeightOfBox();
             System.out.println("Общий вес " + totalWeight);
 
-            int correctWeight = 500; // на какой вес корректируем
-            if((int)totalWeight > correctWeight) {
-                System.out.println("Сладости не влезли в коробку, идёт корректировка");
-                box.reduceWeight(correctWeight);
+            int correctWeight = 400; // на какой вес корректируем
+
+            if(totalWeight > correctWeight) {
+                System.out.println("Сладости не влезли в коробку, идёт корректировка веса коробки");
+                while (true){
+                    box = box.reduceWeight(correctWeight);
+                    if (box.totalWeightOfBox() < correctWeight){
+                        break;
+                    }
+                }
+                System.out.println("Корректировка веса прошла успешно.");
+                System.out.println("Длина коробки " + box.size());
+                System.out.println("Общий вес " + box.totalWeightOfBox());
             } else {
-                System.out.println("Подарок упакован, в него входит:");
-                box.getInfoAboutSweets();
+                System.out.println("Вес в норме");
             }
+
+            int correctPrice = 40; // на какую цену корректируем
+
+            if((int)box.totalCostOfBox() > correctPrice){
+                System.out.println("Слишком дорого, корректируем цену коробки");
+                while ((int)box.totalCostOfBox() > correctPrice){
+                    box = box.reducePrice(correctPrice);
+                }
+                System.out.println("Цена скоректирована " + box.totalCostOfBox());
+            } else {
+                System.out.println("Цена в норме");
+            }
+
+            System.out.println("Подарок упакован, в него входит:");
+            box.getInfoAboutSweets();
+            System.out.println("Длина коробки " + box.size());
             Scanner sc = new Scanner(System.in);
             System.out.println("Хотите собрать ещё одну коробку ? введите q если нет");
 
