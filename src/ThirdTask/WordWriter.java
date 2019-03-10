@@ -9,22 +9,22 @@ import java.util.*;
  * Для тестирования работы программы, укажите путь к вашему файлу в параметра объекта writer
  * @see #writeWordsIntoFile(FileWriter)
  * @see FileWriter
- * TODO @see #listOfAllWorld намеренно установил общую вместимость списка для повышения производительности
  */
-public class WordWriter implements Comparable<WordWriter>{
+
+public class WordWriter {
+
+    static final String FILE_PATH = "C:\\Users\\Asus\\Desktop\\testExample.txt";
+
     private static String[] words ={"Ы", "Яд", "Суп", "Кадр", "Привет", "Выход", "Квадрат", "Персонал", "Аукционер", "Арифметика"};
     private static List<String> listOfAllWorld = new ArrayList<>();
     private static Map<String, Integer> map = new TreeMap<String, Integer>();
 
     public static void main(String[] args) throws IOException {
-        FileWriter writer = new FileWriter("C:\\Users\\Asus\\Desktop\\testExample.txt");
 
         /** записываем данные в файл */
-        writeWordsIntoFile(writer);
-
-        /** Сортируем */
-        //TODO возможно требуется перезапись отсортированных слов в файл
-        Collections.sort(listOfAllWorld);
+        writeWordsIntoFile();
+        /** Сортируем и перезаписываем в файл */
+        sortAndWriteInFile();
 
         /** @see map Подсчет повторений, сбор информации в словарь */
         for(String word : words){
@@ -54,12 +54,12 @@ public class WordWriter implements Comparable<WordWriter>{
     }
 
     /**
-     *  @param writer объект файла который пишет строку в файл
      *  @throws IOException
      *  Паралельно ведётся запись слов в список listOfAllWorld
      *  @see #listOfAllWorld
      */
-    private static void writeWordsIntoFile(FileWriter writer) throws IOException {
+    private static void writeWordsIntoFile() throws IOException {
+        FileWriter writer = new FileWriter(FILE_PATH);
         StringBuilder builder = new StringBuilder();
         for (int i = 0; i < 10000; i++) {
             Random random = new Random();
@@ -67,13 +67,24 @@ public class WordWriter implements Comparable<WordWriter>{
             builder.append(words[randomIndex]).append(" ");
             listOfAllWorld.add(words[randomIndex]);
         }
+
         writer.write(builder.toString().trim());
         writer.close();
     }
 
-    @Override
-    public int compareTo(WordWriter o) {
-
-        return 0;
+    /**
+     * Сортировка содержимого файла и перезапись его в тот же файл
+     * @throws IOException
+     */
+    public static void sortAndWriteInFile() throws IOException {
+        FileWriter writer = new FileWriter(FILE_PATH);
+        StringBuilder builder = new StringBuilder();
+        Collections.sort(listOfAllWorld);
+        for(String word : listOfAllWorld){
+            builder.append(word).append(" ");
+        }
+        writer.write(builder.toString().trim());
+        writer.close();
     }
+
 }
