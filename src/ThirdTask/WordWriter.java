@@ -23,7 +23,6 @@ public class WordWriter {
 
         /** записываем данные в файл*/
         writeWordsIntoFile(writer);
-
     }
 
     /**
@@ -33,7 +32,6 @@ public class WordWriter {
      *  @see #listOfAllWorld
      */
     private static void writeWordsIntoFile(FileWriter writer) throws IOException {
-
         StringBuilder builder = new StringBuilder();
         for (int i = 0; i < 10000; i++) {
             Random random = new Random();
@@ -41,7 +39,6 @@ public class WordWriter {
             builder.append(words[randumIndex]).append(" ");
             listOfAllWorld.add(words[randumIndex]);
         }
-
         writer.write(builder.toString().trim());
         writer.close();
     }
