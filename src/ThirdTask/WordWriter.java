@@ -7,7 +7,8 @@ import java.util.*;
 
 /**
  * @author Ivan Yushin
- * Для тестирования работы программы, укажите путь к вашему файлу в параметра объекта writer
+ * Для тестирования работы программы, укажите путь к вашему файлу в переменной FILE_PATH
+ * @see FILE_PATH
  * @see #writeWordsIntoFile(FileWriter)
  * @see FileWriter
  */
@@ -17,7 +18,7 @@ public class WordWriter {
     static final String FILE_PATH = "C:\\Users\\Asus\\Desktop\\testExample.txt";
 
     private static String[] words ={"Ы", "Яд", "Суп", "Кадр", "Привет", "Выход", "Квадрат", "Персонал", "Аукционер", "Арифметика"};
-    private static List<String> listOfAllWorld = new ArrayList<>();
+    private static List<String> listOfAllWords = new ArrayList<>();
     private static Map<String, Integer> map = new TreeMap<String, Integer>();
 
     public static void main(String[] args) throws IOException {
@@ -29,7 +30,7 @@ public class WordWriter {
 
         /** @see map Подсчет повторений, сбор информации в словарь */
         for(String word : words){
-            int countOfWords = Collections.frequency(listOfAllWorld, word);
+            int countOfWords = Collections.frequency(listOfAllWords, word);
             map.put(word, countOfWords);
         }
 
@@ -55,10 +56,10 @@ public class WordWriter {
      */
     private static double getAverageSizeOfAllWords(){
         double sum = 0;
-        for(String word : listOfAllWorld){
+        for(String word : listOfAllWords){
             sum += word.length();
         }
-        return sum / listOfAllWorld.size();
+        return sum / listOfAllWords.size();
     }
 
     /**
@@ -85,7 +86,7 @@ public class WordWriter {
             Random random = new Random();
             int randomIndex = random.nextInt(words.length);
             builder.append(words[randomIndex]).append(" ");
-            listOfAllWorld.add(words[randomIndex]);
+            listOfAllWords.add(words[randomIndex]);
         }
 
         writer.write(builder.toString().trim());
@@ -93,11 +94,11 @@ public class WordWriter {
     }
 
     /**
-     * Сортировка содержимого файла и перезапись его в тот же файл
+     * Сортировка содержимого файла по алвафиту и перезапись его в тот же файл
      * @throws IOException
      */
     public static void sortAndWriteInFile() throws IOException {
-        ArrayList<String> temp = new ArrayList<String>(listOfAllWorld);
+        ArrayList<String> temp = new ArrayList<String>(listOfAllWords);
         FileWriter writer = new FileWriter(FILE_PATH);
         StringBuilder builder = new StringBuilder();
         Collections.sort(temp);
@@ -114,14 +115,14 @@ public class WordWriter {
     public static void mySortLength() throws IOException {
         FileWriter writer = new FileWriter(new File("C:\\Users\\Asus\\Desktop\\testExample2.txt"));
         StringBuilder builder = new StringBuilder();
-        Collections.sort(listOfAllWorld, new Comparator<String>() {
+        Collections.sort(listOfAllWords, new Comparator<String>() {
             @Override
             public int compare(String o1, String o2) {
                 return o2.compareTo(o1);
             }
         });
 
-        for(String s : listOfAllWorld){
+        for(String s : listOfAllWords){
             builder.append(s).append(" ");
         }
         writer.write(builder.toString().trim());
