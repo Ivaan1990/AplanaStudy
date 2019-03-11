@@ -2,6 +2,7 @@ package ThirdTask;
 
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.File;
 import java.util.*;
 
 /**
@@ -39,6 +40,25 @@ public class WordWriter {
 
         /** Поиск слова с максимальным количеством повторений */
         findMax();
+
+        /** @see #getAverageSizeOfAllWords() */
+        double avg = getAverageSizeOfAllWords();
+        System.out.printf("Средняя длина все слов %.2f", avg);
+
+        /** Сортировка слов по длине и перезапись в новый файл */
+        mySortLength();
+    }
+
+    /**
+     *
+     * @return среднею длину всех слов в файле
+     */
+    private static double getAverageSizeOfAllWords(){
+        double sum = 0;
+        for(String word : listOfAllWorld){
+            sum += word.length();
+        }
+        return sum / listOfAllWorld.size();
     }
 
     /**
@@ -77,11 +97,32 @@ public class WordWriter {
      * @throws IOException
      */
     public static void sortAndWriteInFile() throws IOException {
+        ArrayList<String> temp = new ArrayList<String>(listOfAllWorld);
         FileWriter writer = new FileWriter(FILE_PATH);
         StringBuilder builder = new StringBuilder();
-        Collections.sort(listOfAllWorld);
-        for(String word : listOfAllWorld){
+        Collections.sort(temp);
+        for(String word : temp){
             builder.append(word).append(" ");
+        }
+        writer.write(builder.toString().trim());
+        writer.close();
+    }
+
+    /**
+     * Сортировка по длине слов своим компаратором, и перезапись в новый файл
+     */
+    public static void mySortLength() throws IOException {
+        FileWriter writer = new FileWriter(new File("C:\\Users\\Asus\\Desktop\\testExample2.txt"));
+        StringBuilder builder = new StringBuilder();
+        Collections.sort(listOfAllWorld, new Comparator<String>() {
+            @Override
+            public int compare(String o1, String o2) {
+                return o2.compareTo(o1);
+            }
+        });
+
+        for(String s : listOfAllWorld){
+            builder.append(s).append(" ");
         }
         writer.write(builder.toString().trim());
         writer.close();
