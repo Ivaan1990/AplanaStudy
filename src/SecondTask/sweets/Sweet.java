@@ -30,7 +30,12 @@ public abstract class Sweet {
      * @return цена сладости
      */
     public double getPrice() {
-        return price;
+        try {
+            return price;
+        } catch (NullPointerException ex){
+            ex.printStackTrace();
+            return 0;
+        }
     }
 
     /**

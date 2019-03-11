@@ -10,12 +10,13 @@ import SecondTask.sweets.Sweet;
 public class LauncherTest {
     public static void main(String[] args) throws InterruptedException {
         Box box = new SweetsBox();
-        box.add(new Chocolate(3, 10, "молочный"));
-        box.add(new Chocolate(1, 10, "темный"));
-        box.add(new Chocolate(1, 10, "темный"));
-        box.add(new Chocolate(1, 10, "темный"));
-        box.add(new Chocolate(1, 10, "горький"));
-        System.out.println("weight = " + box.totalWeightOfBox());
+        box.add(null);
+        try {
+            System.out.println(box.get(0).getPrice());
+        } catch (NullPointerException ex){
+            System.out.println("2");
+        }
+        /*System.out.println("weight = " + box.totalWeightOfBox());
         System.out.println("size = " + box.size());
 
         int count = 0;
@@ -25,6 +26,6 @@ public class LauncherTest {
         }
         System.out.println(count);
         System.out.println("weight = " + box.totalWeightOfBox());
-        System.out.println("size = " + box.size());
+        System.out.println("size = " + box.size());*/
     }
 }
