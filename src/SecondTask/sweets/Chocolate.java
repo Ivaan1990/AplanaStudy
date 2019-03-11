@@ -33,6 +33,6 @@ public class Chocolate extends Sweet {
     }
     @Override
     public String toString() {
-        return super.toString() + " шоколад. Сорт: " + variety;
+        return super.toString() + " шоколад. Вкус " + variety;
     }
 }

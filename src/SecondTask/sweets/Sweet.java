@@ -1,6 +1,5 @@
 package SecondTask.sweets;
 
-
 /**
  * @author Ivan Yushin
  * @see Candy
@@ -13,12 +12,16 @@ public abstract class Sweet {
     private static String[] tastes = {"клубника", "яблоко", "банан", "апельсин"};
 
     /**
-     *
      * @param price цена
      * @param weight вес
+     * @see #showErrorPrice
      */
     public Sweet(double price, double weight) {
-        this.price = price;
+        if(price < 0) {
+            showErrorPrice();
+        } else {
+            this.price = price;
+        }
         this.weight = weight;
     }
 
@@ -41,7 +44,7 @@ public abstract class Sweet {
         this.price = price;
     }
 
-    public void setWeight(double weight) {
+    public void setWeight( double weight) {
         this.weight = weight;
     }
 
@@ -52,7 +55,7 @@ public abstract class Sweet {
 
     /**
      *
-     * @return возвращаем рандомный вес сладости
+     * @return возвращаем случайный вес сладости
      */
     public static double getRandomWeight(){
         return  5 + (int) ((Math.random() * 40));
@@ -60,11 +63,19 @@ public abstract class Sweet {
 
     /**
      *
-     * @return возвращает рандомный вкус сладости из массива tastes
+     * @return возвращает случайный вкус сладости из массива tastes
      * @see #tastes
      */
     public static String randomTaste() {
         return tastes[(int) (Math.random() * tastes.length)];
     }
 
+    /**
+     * @see #Sweet(double price, double)
+     * Выводит сообщение об ошибке ввода недопустимого значения для поля price
+     */
+    private void showErrorPrice(){
+        System.err.println("ошибка при ввелении, price < 0");
+        this.price = 0;
+    }
 }
