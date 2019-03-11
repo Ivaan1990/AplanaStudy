@@ -172,7 +172,7 @@ public class SweetsBox implements Box {
     /**
      *
      * @param reduce изменяем цену коробки, на ту цену что передается в параметр метода
-     *  путем извлечения любых сладостей
+     *  путем извлечения самых дорогих сладостей
      */
     @Override
     public void reducePrice(int reduce) {
