@@ -11,9 +11,6 @@ import java.util.Scanner;
 /**
  * @author Ivan Yushin
  *
- * Изначальная ёмкость коробки 20, и больше этого значения быть не может, увеличение коробки не предусмотрено
- * В цикле рандомно создаем объекты сладостей, и добавляем их в коробку. Повторяем 20 раз
- * После того как коробка заполнена, сообщаем об этом, выводим её стоимость и общий вес
  * @see SweetsBox
  * @see Sweet
  * @see Box
@@ -26,16 +23,16 @@ public class Laucnher {
 
         /** Список коробок с разными предикатами, раскоментировать коробку чтобы протестировать работу*/
         //Box box = new SweetsBox(sweet -> sweet instanceof Chocolate && sweet.getWeight() > 5); // только шоколадки весом больше 5
-        Box box = new SweetsBox(); // любые сладости
-        //Box box = new SweetsBox(sweet -> sweet.getPrice() < 2); // любые сладости дешевле 2 рублей
+        //Box box = new SweetsBox(); // любые сладости
+        Box box = new SweetsBox(sweet -> sweet.getPrice() < 50); // любые сладости дешевле 50 рублей
 
         /** @see FactorySweets * ----- 1 пункт задания ----- */
 
         //Создание вкусняшек через статические ссылки на методы
         FactorySweets<Sweet> candyFactory = Candy::new;
-        box.add(candyFactory.create(2, Sweet.getRandomWeight(), Candy.randomTaste()));
+        box.add(candyFactory.create(15, Sweet.getRandomWeight(), Candy.randomTaste()));
         FactorySweets<Sweet> chocolateFactory = Donut::new;
-        box.add(chocolateFactory.create(2, Sweet.getRandomWeight(), Candy.randomTaste()));
+        box.add(chocolateFactory.create(100, Sweet.getRandomWeight(), Candy.randomTaste()));
 
         //через фабрику отдельных классов
         FactorySweets<Sweet> oneCandy = new FactorySweets<Sweet>() {
@@ -52,8 +49,8 @@ public class Laucnher {
             }
         };
 
-        box.add(oneCandy.create(2, Sweet.getRandomWeight(), Sweet.randomTaste()));
-        box.add(oneDonut.create(4, Sweet.getRandomWeight(), Sweet.randomTaste()));
+        box.add(oneCandy.create(10, Sweet.getRandomWeight(), Sweet.randomTaste()));
+        box.add(oneDonut.create(80, Sweet.getRandomWeight(), Sweet.randomTaste()));
 
         /** 4 пункт задания */
         box.getInfoAboutSweets();
