@@ -31,7 +31,7 @@ public class Laucnher {
 
         /** @see FactorySweets * ----- 1 пункт задания ----- */
 
-        //Создание вкусняшек через лямбды
+        //Создание вкусняшек через статические ссылки на методы
         FactorySweets<Sweet> candyFactory = Candy::new;
         box.add(candyFactory.create(2, Sweet.getRandomWeight(), Candy.randomTaste()));
         FactorySweets<Sweet> chocolateFactory = Donut::new;
