@@ -1,4 +1,4 @@
-package SecondTask.sweets;
+package BoxCollector.sweets;
 
 /**
  * @author Ivan Yushin
@@ -51,11 +51,6 @@ public abstract class Sweet {
 
     public void setWeight( double weight) {
         this.weight = weight;
-    }
-
-    @Override
-    public String toString() {
-        return "Сладость";
     }
 
     /**

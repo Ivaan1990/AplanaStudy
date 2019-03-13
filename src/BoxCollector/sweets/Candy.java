@@ -1,4 +1,4 @@
-package SecondTask.sweets;
+package BoxCollector.sweets;
 
 /**
  * @author Ivan Yushin
@@ -19,7 +19,7 @@ public class Candy extends Sweet {
 
     @Override
     public String toString() {
-        return super.toString() + " конфета. Вкус: " + taste;
+        return "Конфета. Вкус: " + taste;
     }
 
     public String getTaste() {

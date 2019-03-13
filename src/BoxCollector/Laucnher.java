@@ -1,9 +1,10 @@
-package SecondTask;
+package BoxCollector;
 
-import SecondTask.sweets.Candy;
-import SecondTask.sweets.Chocolate;
-import SecondTask.sweets.Donut;
-import SecondTask.sweets.Sweet;
+import BoxCollector.sweets.Candy;
+import BoxCollector.sweets.Chocolate;
+import BoxCollector.sweets.Donut;
+import BoxCollector.sweets.Sweet;
+
 import java.util.Random;
 import java.util.Scanner;
 

@@ -1,4 +1,4 @@
-package SecondTask.sweets;
+package BoxCollector.sweets;
 
 /**
  * @author Ivan Yushin
@@ -23,6 +23,6 @@ public class Donut extends Sweet {
 
     @Override
     public String toString() {
-        return super.toString() + " пончик. Начинка: " + filling;
+        return "Пончик. Начинка: " + filling;
     }
 }

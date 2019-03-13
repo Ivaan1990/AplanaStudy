@@ -1,4 +1,4 @@
-package SecondTask.sweets;
+package BoxCollector.sweets;
 
 /**
  * @author Ivan Yushin
@@ -33,6 +33,6 @@ public class Chocolate extends Sweet {
     }
     @Override
     public String toString() {
-        return super.toString() + " шоколад. Вкус " + variety;
+        return "Шоколад. Вкус " + variety;
     }
 }
