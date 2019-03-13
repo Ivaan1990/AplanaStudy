@@ -21,7 +21,7 @@ public class Laucnher {
 
     public static void main(String[] args) throws InterruptedException {
 
-        /** Список коробок с разными предикатами, раскоментировать коробку чтобы протестировать работу*/
+        /** Виды коробок с разными предикатами, раскоментировать коробку чтобы протестировать работу*/
         //Box box = new SweetsBox(sweet -> sweet instanceof Chocolate && sweet.getWeight() > 5); // только шоколадки весом больше 5
         //Box box = new SweetsBox(); // любые сладости
         Box box = new SweetsBox(sweet -> sweet.getPrice() < 50); // любые сладости дешевле 50 рублей
