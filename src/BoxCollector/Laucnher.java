@@ -24,63 +24,45 @@ public class Laucnher {
 
     public static void main(String[] args) throws InterruptedException {
 
-        while (true){
-            Box box = new SweetsBox();
-            System.out.println("Формируем коробку со сладостями");
+        /** Список коробок с разными предикатами, раскоментировать коробку чтобы протестировать работу*/
+        //Box box = new SweetsBox(sweet -> sweet instanceof Chocolate && sweet.getWeight() > 5); // только шоколадки весом больше 5
+        Box box = new SweetsBox(); // любые сладости
+        //Box box = new SweetsBox(sweet -> sweet.getPrice() < 2); // любые сладости дешевле 2 рублей
 
-            for(int i = 0; i < 10 + (Math.random() * 20); i++){
-                Random r = new Random();
-                int random = r.nextInt(AMOUNT_OF_SWEETS);
-                switch (random){
-                    case 0:
-                        box.add(new Candy(1, Sweet.getRandomWeight(), Sweet.randomTaste()));
-                        break;
-                    case 1:
-                        box.add(new Donut(3, Sweet.getRandomWeight(), Sweet.randomTaste()));
-                        break;
-                    case 2:
-                        box.add(new Chocolate(4, Sweet.getRandomWeight(), Chocolate.randomVariety()));
-                        break;
-                }
+        /** @see FactorySweets * ----- 1 пункт задания ----- */
+
+        //Создание вкусняшек через лямбды
+        FactorySweets<Sweet> candyFactory = Candy::new;
+        box.add(candyFactory.create(2, Sweet.getRandomWeight(), Candy.randomTaste()));
+        FactorySweets<Sweet> chocolateFactory = Donut::new;
+        box.add(chocolateFactory.create(2, Sweet.getRandomWeight(), Candy.randomTaste()));
+
+        //через фабрику отдельных классов
+        FactorySweets<Sweet> oneCandy = new FactorySweets<Sweet>() {
+            @Override
+            public Sweet create(double price, double weight, String taste) {
+                return new Candy(price, weight, taste);
             }
+        };
 
-            System.out.println("Длина коробки " + box.size());
-            System.out.println("Цена коробки со всеми сладостями " + box.totalCostOfBox());
-            System.out.println("Общий вес " + box.totalWeightOfBox());
-
-            int correctWeight = 300; // на какой вес корректируем
-
-            if((int)box.totalWeightOfBox() > correctWeight) {
-                System.out.println("Сладости не влезли в коробку, идёт корректировка веса коробки");
-                while (box.totalWeightOfBox() > correctWeight){
-                    box.reduceWeight(correctWeight);
-                }
-                System.out.println("корректировка веса прошла успешно. Общий вес " + box.totalWeightOfBox());
-            } else {
-                System.out.println("Вес в норме");
+        FactorySweets<Sweet> oneDonut = new FactorySweets<Sweet>() {
+            @Override
+            public Sweet create(double price, double weight, String taste) {
+                return new Chocolate(price, weight, taste);
             }
+        };
 
-            int correctPrice = 40; // на какую цену корректируем
+        box.add(oneCandy.create(2, Sweet.getRandomWeight(), Sweet.randomTaste()));
+        box.add(oneDonut.create(4, Sweet.getRandomWeight(), Sweet.randomTaste()));
 
-            if((int)box.totalCostOfBox() > correctPrice){
-                System.out.print("Слишком дорого, корректируем цену коробки");
-                while ((int)box.totalCostOfBox() > correctPrice){
-                    box.reducePrice(correctPrice);
-                }
-                System.out.println("Цена скоректирована" + box.totalCostOfBox());
-            } else {
-                System.out.println("Цена в норме");
-            }
+        /** 4 пункт задания */
+        box.getInfoAboutSweets();
+        System.out.println("------------------------");
+        System.out.println("Общая стоимость коробки " + box.totalCostOfBox());
+        System.out.println("Общий вес коробки " + box.totalWeightOfBox());
+        box.howMuchSweetInBox(sweet -> sweet instanceof Candy);
+        System.out.println("------------------------");
 
-            System.out.println("Подарок упакован, в него входит:");
-            box.getInfoAboutSweets();
-            System.out.println("Длина коробки " + box.size());
-            Scanner sc = new Scanner(System.in);
-            System.out.println("Хотите собрать ещё одну коробку ?\nвведите q если нет");
-
-            if (sc.nextLine().equalsIgnoreCase("q")){
-                break;
-            }
-        }
+        /** 2 пункт задания */
     }
 }
