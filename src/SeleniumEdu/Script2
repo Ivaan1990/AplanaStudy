@@ -7,10 +7,9 @@
     Несколько поездок в течении года -> //*[@data-test-value="Multiple"]
     
     --------------
-    Ввести инфу в поле ввода drv.FindElement(By.XPath("//*[@class="form-control-multiple-autocomplete-actual-input tt-input collapsed"]")).SendKeys("Шенген");
-    Что то непонятно, но на поле ввода xpath //*[@class="form-control-multiple-autocomplete-actual-input tt-input collapsed"]
-    Куда едем – Шенген
-    Страна въезда – Испания
+    Ввести инфу в поле ввода: 
+    1.  Куда едем – Шенген drv.FindElement(By.XPath("//*[@class="form-control-multiple-autocomplete-actual-input tt-input collapsed"]")).SendKeys("Шенген");
+    2.  Страна въезда – Испания - //*[@id="ArrivalCountryList"]
     --------------
     
     Дата первой поездки – 1 ноября
