@@ -37,7 +37,7 @@ public class Travel {
         findElementAndClick("//*[contains(text(), 'Выезжающим за рубеж')]");
 
 		//jseScroller.executeScript("window.scrollBy(0,-250)", ""); // старый скроллер
-        scrollPage("//*/a[contains(text(), 'Рассчитать')]"); /* Скроллер */
+        scrollPage("//*[contains(@class, 'thumbnail-footer')]/a[contains(text(),'Рассчитать')]"); /* Скроллер */
         findElementAndClick("//*[text()=' ок ']");
         findElementAndClick("//*[contains(@class, 'thumbnail-footer')]/a[contains(text(),'Рассчитать')]");
 
