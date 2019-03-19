@@ -1,14 +1,18 @@
 package SeleniumEdu;
-
-import com.gargoylesoftware.htmlunit.javascript.background.JavaScriptExecutor;
 import org.openqa.selenium.*;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.ui.*;
-
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
 import java.util.concurrent.TimeUnit;
 
+/**
+ *
+ * @author Ivan Yushin
+ * @see #fillForm(By, String)
+ * @see #findElementAndClick(String)
+ * @see #scrollPage(String)
+ */
 public class Travel {
     static {
         System.setProperty("webdriver.chrome.driver", "drv/chromedriver.exe");
@@ -24,29 +28,26 @@ public class Travel {
         findElementAndClick("//*/ol/li/a[contains(text(), 'Страхование')]");
         findElementAndClick("//*[contains(text(), 'Выезжающим за рубеж')]");
 
-        JavascriptExecutor jseScroller = (JavascriptExecutor)drv;  /* скороллер страницы */
-        jseScroller.executeScript("scroll(0, 1000);");
+        scrollPage("//*[contains(@class, 'thumbnail-footer')]/a[contains(text(),'Рассчитать')]"); /* Скроллер */
         findElementAndClick("//*[text()=' ок ']");
-        findElementAndClick("//*/a[contains(text(), 'Рассчитать')]");
-
-        jseScroller.executeScript("window.scrollBy(0,-250)", "");
-
-        /** Поиск нужного текста */
+        findElementAndClick("//*[contains(@class, 'thumbnail-footer')]/a[contains(text(),'Рассчитать')]");
         findText(
                 "Страхование выезжающих за рубеж",
                 drv.findElement(By.xpath("//div[@class='page-header']/span [@class ='h1']")).getText().trim()
         );
+        Wait<WebDriver> wait = new WebDriverWait(drv, 10,1000);
+        wait.until(ExpectedConditions.visibilityOf(drv.findElement(By.xpath("//*[contains(@data-test-value, 'Multiple')]"))));
+        findElementAndClick("//*[contains(@data-test-value, 'Multiple')]");
 
-        findElementAndClick("//*[contains(@class, 'btn-content-subtitle small')]");
-        jseScroller.executeScript("scroll(0, 500);");
-        drv.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
-        fillForm(By.xpath("//*[contains(@class, 'actual-input')]"), "шенген");
+        scrollPage("//*[contains(@class, 'actual-input')]");
+        wait.until(ExpectedConditions.visibilityOf(drv.findElement(By.xpath("//*[contains(@class, 'actual-input')]"))));
+        fillForm(By.xpath("//*[contains(@data-bind, 'attr: _params.input,')]"), "шенген");  // вводим страну
+
+        scrollPage("//*[contains(@class, 'btn-content-subtitle small')]");
         findElementAndClick("//*[contains(@class, 'tt-menu tt')]");
         findElementAndClick("//*[contains(@ id, 'ArrivalCountryList')]");
         new Select(drv.findElement(By.name("ArrivalCountryList"))).selectByVisibleText("Испания");
         findElementAndClick("//*[contains(@data-bind, 'value: FirstDepartureDate.')]");
-
-        /** @see Iselen функциональный интерфейс, возвращает дату поездки +14 дней */
         Iselen dateOfJourney = () -> {
             LocalDate today = LocalDate.now();
             LocalDate date = today.plus(14, ChronoUnit.DAYS);
@@ -57,45 +58,49 @@ public class Travel {
             }
             return builder.toString();
         };
-        fillForm(By.xpath("//*[contains(@data-bind, 'value: FirstDepartureDate.')]"), dateOfJourney.function());
+        String date = dateOfJourney.function();
+        while (true){
+            fillForm(By.xpath("//*[contains(@data-bind, 'value: FirstDepartureDate.')]"), date); // ДАТА ПОЕЗДКИ
+            String val = drv.findElement(By.xpath("//*[contains(@data-bind, 'value: FirstDepartureDate.')]")).getAttribute("value");
+            if (validationForm(date, val)){
+                System.out.println("Дата поездки корректна");
+                break;
+            }
+            System.err.println("Дата поездки введена некорректно, пробуем еще раз");
+        }
         findElementAndClick("//*[contains(@data-bind, 'btnRadioGroupValue: 90')]");
 
-        jseScroller.executeScript("window.scrollBy(0,460)", "");
+        scrollPage("//*[contains(@class, 'form-control')][contains(@data-bind, 'attr: _params.fullName.attr,')]");
         String temp = "//*[contains(@class, 'form-control')][contains(@data-bind, 'attr: _params.fullName.attr,')]";
         findElementAndClick(temp);
-        fillForm(By.xpath(temp), "Yushin Ivan");
+        fillForm(By.xpath(temp), "Yushin Ivan"); // ФАМИЛИЯ ИМЯ
+
         temp = "//*[contains(@data-bind, 'value: BirthDay.computedView')]";
         findElementAndClick(temp);
-
         String birthDate = "01111990";
-        fillForm(By.xpath(temp), birthDate);
-        findElementAndClick("//*[contains(text(), 'активный отдых или спорт')]/ancestor::div[@class=\"calc-vzr-toggle-risk-group\"]//div[@class=\"toggle off toggle-rgs\"]");
+        while (true){
+            fillForm(By.xpath(temp), birthDate); // ДАТА РОЖДЕНИЯ
+            String val = drv.findElement(By.xpath(temp)).getAttribute("value");
+            if(validationForm(birthDate, val)) {
+                System.out.println("Дата рождения введена корректно");
+                break;
+            }
+            System.err.println("Дата рождения введена не корректно, исправляем");
+        }
 
-        jseScroller.executeScript("scroll(0, 1600);");
-        drv.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+        scrollPage("//*[contains(@data-test-name, 'IsProcessingPersonalDataToCalculate')]");
+        findElementAndClick("//*[contains(text(), 'активный отдых или спорт')]/ancestor::div[@class=\"calc-vzr-toggle-risk-group\"]//div[@class=\"toggle off toggle-rgs\"]");
+        scrollPage("//*[contains(@data-test-name, 'IsProcessingPersonalDataToCalculate')]");
         findElementAndClick("//*[contains(@data-test-name, 'IsProcessingPersonalDataToCalculate')]");
         findElementAndClick("//*[contains(@data-bind, 'disable: Misc.NextButtonDisabled')]");
-        drv.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
-        validationErrorTexts();
     }
 
     /**
      *
-     * валидация полей ввода
-     * на текущий момент только год рождения
+     * Скроллер страницы
      */
-    public static void validationErrorTexts(){
-        try {
-            boolean checkCorrectDate = drv.findElement(By.xpath("//*[text()='Неверная дата']")).getText().equalsIgnoreCase("Неверная дата");
-            if (checkCorrectDate){
-                System.err.println("Введён некорректный формат даты");
-                drv.quit();
-            }
-        } catch (NoSuchElementException ex){
-            System.out.println("Дата введена корректно");
-        } catch (NullPointerException ex){
-            System.out.println("Дата введена корректно");
-        }
+    private static void scrollPage(String xPath){
+        ((JavascriptExecutor)drv).executeScript("arguments[0].scrollIntoView();", drv.findElement(By.xpath(xPath)));
     }
 
     /**
@@ -104,8 +109,10 @@ public class Travel {
      * @param fill текст который заполняем в форму
      */
     public static void fillForm(By locator, String fill){
+        Wait<WebDriver> wait = new WebDriverWait(drv, 10,1000);
         drv.findElement(locator).click();
         drv.findElement(locator).clear();
+        wait.until(ExpectedConditions.visibilityOf(drv.findElement((locator))));
         drv.findElement(locator).sendKeys(fill);
     }
 
@@ -114,6 +121,7 @@ public class Travel {
      * @param xPath параметр принимает xpath
      */
     private static void findElementAndClick(String xPath){
+        drv.manage().timeouts().implicitlyWait(15, TimeUnit.SECONDS);
         drv.findElement(By.xpath(xPath)).click();
     }
 
@@ -128,5 +136,13 @@ public class Travel {
         } else {
             System.out.println("Заголовок не соответствует заданному");
         }
+    }
+    public static boolean validationForm(String expect, String actual){
+        StringBuilder builder = new StringBuilder();
+        char[] arr = actual.toCharArray();
+        for(char symb : arr){
+            if (symb != '.' ) builder.append(symb);
+        }
+        return expect.equalsIgnoreCase(builder.toString());
     }
 }
